@@ -1,0 +1,11 @@
+# robots.txt for Cranks Bike Shop
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://cranks-bike-shop.vercel.app/sitemap.xml
+
+# Disallow admin/studio pages
+User-agent: *
+Disallow: /studio/
+Disallow: /api/
