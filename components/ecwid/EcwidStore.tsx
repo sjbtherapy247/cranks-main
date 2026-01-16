@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useCallback } from "react"
+import { useEffect, useState, useRef } from "react"
 
 interface EcwidStoreProps {
   storeId?: string
@@ -19,100 +19,110 @@ declare global {
 export function EcwidStore({ storeId = "129297501" }: EcwidStoreProps) {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-
-  const initProductBrowser = useCallback(() => {
-    if (window.xProductBrowser) {
-      try {
-        window.xProductBrowser(
-          "categoriesPerRow=3",
-          "views=grid(20,3) list(60) table(60)",
-          "categoryView=grid",
-          "searchView=list",
-          "id=my-store-" + storeId
-        )
-        setIsLoading(false)
-        return true
-      } catch (err) {
-        console.error("Ecwid init error:", err)
-        return false
-      }
-    }
-    return false
-  }, [storeId])
+  const containerRef = useRef<HTMLDivElement>(null)
+  const initializedRef = useRef(false)
 
   useEffect(() => {
+    // Prevent double initialization (React Strict Mode)
+    if (initializedRef.current) return
+    
+    const containerId = "my-store-" + storeId
+
+    const initProductBrowser = () => {
+      // Make sure container exists in DOM
+      const container = document.getElementById(containerId)
+      if (!container) {
+        console.error("Ecwid container not found:", containerId)
+        return false
+      }
+
+      if (typeof window.xProductBrowser === "function") {
+        try {
+          initializedRef.current = true
+          // Call with exact same format as Ecwid's embed code
+          window.xProductBrowser(
+            "categoriesPerRow=3",
+            "views=grid(20,3) list(60) table(60)",
+            "categoryView=grid",
+            "searchView=list",
+            "id=" + containerId
+          )
+          setIsLoading(false)
+          return true
+        } catch (err) {
+          console.error("Ecwid init error:", err)
+          initializedRef.current = false
+          return false
+        }
+      }
+      return false
+    }
+
     // Set Ecwid config flags
     window.ecwid_script_defer = true
     window.ecwid_dynamic_widgets = true
 
-    // Check if script already loaded and ready
-    if (window.xProductBrowser) {
-      initProductBrowser()
+    // Check if already loaded
+    if (typeof window.xProductBrowser === "function") {
+      // Small delay to ensure DOM is ready
+      requestAnimationFrame(() => {
+        initProductBrowser()
+      })
       return
     }
 
-    // Check if script tag exists but still loading
-    const existingScript = document.getElementById("ecwid-script")
-    if (existingScript) {
-      // Poll for xProductBrowser to be available
-      const checkReady = setInterval(() => {
-        if (window.xProductBrowser) {
-          clearInterval(checkReady)
+    // Check if script exists
+    if (document.getElementById("ecwid-script")) {
+      // Poll until ready
+      const poll = setInterval(() => {
+        if (typeof window.xProductBrowser === "function") {
+          clearInterval(poll)
           initProductBrowser()
         }
+      }, 100)
+      setTimeout(() => clearInterval(poll), 15000)
+      return
+    }
+
+    // Create script
+    const script = document.createElement("script")
+    script.id = "ecwid-script"
+    script.src = "https://app.ecwid.com/script.js?" + storeId + "&data_platform=code"
+    script.async = true
+    script.charset = "utf-8"
+
+    script.onload = () => {
+      // Wait for xProductBrowser to be defined
+      const poll = setInterval(() => {
+        if (typeof window.xProductBrowser === "function") {
+          clearInterval(poll)
+          // Extra delay to let Ecwid fully initialize
+          setTimeout(initProductBrowser, 100)
+        }
       }, 50)
-      
-      // Timeout after 10 seconds
       setTimeout(() => {
-        clearInterval(checkReady)
-        if (!window.xProductBrowser) {
-          setError("Store took too long to load")
+        clearInterval(poll)
+        if (!initializedRef.current) {
+          setError("Store failed to load")
           setIsLoading(false)
         }
       }, 10000)
-      return
-    }
-
-    // Inject script - use high priority
-    const script = document.createElement("script")
-    script.id = "ecwid-script"
-    script.src = `https://app.ecwid.com/script.js?${storeId}&data_platform=code`
-    script.async = true
-    script.charset = "utf-8"
-    // @ts-expect-error - fetchpriority is valid but not in types
-    script.fetchpriority = "high"
-
-    script.onload = () => {
-      // Poll for xProductBrowser (faster than fixed delay)
-      const checkReady = setInterval(() => {
-        if (window.xProductBrowser) {
-          clearInterval(checkReady)
-          initProductBrowser()
-        }
-      }, 20) // Check every 20ms
-      
-      // Fallback timeout
-      setTimeout(() => {
-        clearInterval(checkReady)
-        if (!window.xProductBrowser) {
-          setError("Store failed to initialize")
-          setIsLoading(false)
-        }
-      }, 5000)
     }
 
     script.onerror = () => {
-      setError("Failed to load store")
+      setError("Failed to load store script")
       setIsLoading(false)
     }
 
-    // Insert at top of body for priority
-    document.body.insertBefore(script, document.body.firstChild)
-  }, [storeId, initProductBrowser])
+    document.body.appendChild(script)
+
+    return () => {
+      // Don't cleanup - Ecwid manages its own state
+    }
+  }, [storeId])
 
   return (
     <div className="min-h-[500px] relative">
-      {/* Loading overlay - positioned absolute so it doesn't shift layout */}
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-white/80 z-10">
           <div className="text-center">
@@ -136,8 +146,12 @@ export function EcwidStore({ storeId = "129297501" }: EcwidStoreProps) {
         </div>
       )}
       
-      {/* Ecwid container - always rendered so script can find it */}
-      <div id={`my-store-${storeId}`} className="min-h-[500px]"></div>
+      {/* Ecwid container */}
+      <div 
+        ref={containerRef}
+        id={"my-store-" + storeId} 
+        className="min-h-[500px]"
+      />
     </div>
   )
 }
