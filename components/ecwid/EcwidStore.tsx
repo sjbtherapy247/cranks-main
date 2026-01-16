@@ -8,11 +8,11 @@ interface EcwidStoreProps {
 
 declare global {
   interface Window {
-    xProductBrowser: (...args: string[]) => void
-    Ecwid: unknown
-    ec: unknown
-    ecwid_script_defer: boolean
-    ecwid_dynamic_widgets: boolean
+    xProductBrowser?: (...args: string[]) => void
+    Ecwid?: unknown
+    ec?: unknown
+    ecwid_script_defer?: boolean
+    ecwid_dynamic_widgets?: boolean
   }
 }
 
