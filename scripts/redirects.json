@@ -1,0 +1,89 @@
+{
+  "redirects": [
+    {
+      "source": "/shop/bikes/mountain-bikes/hard-tail/",
+      "destination": "/shop/bikes/mountain-bikes/hardtail",
+      "permanent": true
+    },
+    {
+      "source": "/shop/bikes/e-bikes/e-mtb-bikes/",
+      "destination": "/shop/bikes/e-bikes/e-mtb",
+      "permanent": true
+    },
+    {
+      "source": "/product/norco-charger-1-2025/",
+      "destination": "/shop/norco-charger-1-2025",
+      "permanent": true
+    },
+    {
+      "source": "/product/norco-charger-2-2025/",
+      "destination": "/shop/norco-charger-2-2025",
+      "permanent": true
+    },
+    {
+      "source": "/product/norco-storm-100-mtb-2025/",
+      "destination": "/shop/norco-storm-100-mtb-2025",
+      "permanent": true
+    },
+    {
+      "source": "/product/scott-roxter-26-disc-mtb/",
+      "destination": "/shop/scott-roxter-26-disc-mtb",
+      "permanent": true
+    },
+    {
+      "source": "/product/scott-aspect-930-mtb/",
+      "destination": "/shop/scott-aspect-930-mtb",
+      "permanent": true
+    },
+    {
+      "source": "/product/scott-scale-965-mtb/",
+      "destination": "/shop/scott-scale-965-mtb",
+      "permanent": true
+    },
+    {
+      "source": "/product/trek-marlin-7-gen-3-mtb-2025/",
+      "destination": "/shop/trek-marlin-7-gen-3-mtb-2025",
+      "permanent": true
+    },
+    {
+      "source": "/product/100-accuri-2-goggles/",
+      "destination": "/shop/100-accuri-2-goggles",
+      "permanent": true
+    },
+    {
+      "source": "/product/fox-ranger-mtb-gloves/",
+      "destination": "/shop/fox-ranger-mtb-gloves",
+      "permanent": true
+    },
+    {
+      "source": "/product/shimano-deore-xt-pedals/",
+      "destination": "/shop/shimano-deore-xt-pedals",
+      "permanent": true
+    },
+    {
+      "source": "/product/maxxis-minion-dhf-29-tyre/",
+      "destination": "/shop/maxxis-minion-dhf-29-tyre",
+      "permanent": true
+    },
+    {
+      "source": "/product/lezyne-macro-drive-1300-light/",
+      "destination": "/shop/lezyne-macro-drive-1300-light",
+      "permanent": true
+    },
+    {
+      "source": "/product/micro-scooter-sprite/",
+      "destination": "/shop/micro-scooter-sprite",
+      "permanent": true
+    },
+    {
+      "source": "/product/byk-e-350-kids-bike/",
+      "destination": "/shop/byk-e-350-kids-bike",
+      "permanent": true
+    },
+    {
+      "source": "/product/trek-powerfly-5-e-mtb/",
+      "destination": "/shop/trek-powerfly-5-e-mtb",
+      "permanent": true
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+
+WooCommerce to Ecwid Migration Report
+=====================================
+Date: 2026-01-16T07:22:21.941Z
+Mode: PRESERVE hierarchy
+
+SUMMARY
+-------
+Products Processed: 15
+Products Migrated: 15
+Products Skipped: 0
+Categories Found: 21
+Redirects Generated: 17
+
+OUTPUT FILES
+------------
+Products CSV:     ecwid-products.csv
+Categories CSV:   ecwid-categories.csv
+Redirects JSON:   redirects.json (for Vercel)
+Redirects Next:   redirects-nextjs.txt (for next.config.mjs)
+Redirects Nginx:  redirects-nginx.conf
+Redirects Apache: redirects-htaccess.txt
+Redirects CSV:    redirects-review.csv (for review)
+
+Category Hierarchy:
+- Accessories
+  - Accessories/Lights (1 products)
+- Bikes
+  - Bikes/E-Bikes
+    - Bikes/E-Bikes/E-MTB (1 products)
+  - Bikes/Kids Bikes
+    - Bikes/Kids Bikes/4-6 Yrs (1 products)
+  - Bikes/Mountain Bikes
+    - Bikes/Mountain Bikes/Hardtail (7 products)
+- Clothing
+  - Clothing/Eyewear
+    - Clothing/Eyewear/Goggles (1 products)
+  - Clothing/Gloves (1 products)
+- Parts
+  - Parts/Pedals and cleats
+    - Parts/Pedals and cleats/MTB (1 products)
+  - Parts/Tyres
+    - Parts/Tyres/MTB
+      - Parts/Tyres/MTB/29 (1 products)
+- Scooters
+  - Scooters/Kids Scooters (1 products)
+
+Skipped Products (no name or price):
+  None
+
+Sample Redirects:
+  /shop/bikes/mountain-bikes/hard-tail/ → /shop/bikes/mountain-bikes/hardtail
+  /shop/bikes/e-bikes/e-mtb-bikes/ → /shop/bikes/e-bikes/e-mtb
+  /product/norco-charger-1-2025/ → /shop/norco-charger-1-2025
+  /product/norco-charger-2-2025/ → /shop/norco-charger-2-2025
+  /product/norco-storm-100-mtb-2025/ → /shop/norco-storm-100-mtb-2025
+  /product/scott-roxter-26-disc-mtb/ → /shop/scott-roxter-26-disc-mtb
+  /product/scott-aspect-930-mtb/ → /shop/scott-aspect-930-mtb
+  /product/scott-scale-965-mtb/ → /shop/scott-scale-965-mtb
+  /product/trek-marlin-7-gen-3-mtb-2025/ → /shop/trek-marlin-7-gen-3-mtb-2025
+  /product/100-accuri-2-goggles/ → /shop/100-accuri-2-goggles
+  ... and 7 more
+
+===========================================
+IMPORT INSTRUCTIONS
+===========================================
+
+STEP 1: Import Categories First
+-------------------------------
+1. Go to Ecwid Control Panel → Catalog → Categories
+2. Click Import (or use bulk actions)
+3. Upload: ecwid-categories.csv
+4. This creates your category hierarchy
+
+STEP 2: Import Products
+-----------------------
+1. Go to Ecwid Control Panel → Catalog → Products
+2. Click Import
+3. Upload: ecwid-products.csv
+4. Map columns to Ecwid fields
+5. ✅ ENABLE "Download images from URLs"
+6. Run import
+
+STEP 3: Set Up Redirects (for SEO)
+----------------------------------
+For Vercel (recommended):
+  1. Copy contents of redirects.json
+  2. Add to your vercel.json file
+
+For Next.js:
+  1. Copy contents of redirects-nextjs.txt
+  2. Add to next.config.mjs
+
+For Nginx:
+  1. Copy contents of redirects-nginx.conf
+  2. Add to your nginx server block
+
+For Apache:
+  1. Copy contents of redirects-htaccess.txt
+  2. Add to your .htaccess file
+
+STEP 4: Verify
+--------------
+1. Check products have correct categories
+2. Verify images downloaded properly
+3. Test redirects work (old URLs → new URLs)
+4. Submit updated sitemap to Google Search Console
+
+Notes:
+- Categories use "/" as path separator (e.g., "Bikes/Mountain Bikes/Hardtail")
+- Edit CATEGORY_CORRECTIONS in the script to fix typos
+- Review redirects-review.csv to verify redirect mappings
+- Set PRESERVE_CATEGORY_HIERARCHY = false to collapse to top-level only

@@ -1,0 +1,22 @@
+# Apache redirects for WooCommerce to Ecwid migration
+# Add these to your .htaccess file
+
+RewriteEngine On
+
+RedirectPermanent /shop/bikes/mountain-bikes/hard-tail/ /shop/bikes/mountain-bikes/hardtail
+RedirectPermanent /shop/bikes/e-bikes/e-mtb-bikes/ /shop/bikes/e-bikes/e-mtb
+RedirectPermanent /product/norco-charger-1-2025/ /shop/norco-charger-1-2025
+RedirectPermanent /product/norco-charger-2-2025/ /shop/norco-charger-2-2025
+RedirectPermanent /product/norco-storm-100-mtb-2025/ /shop/norco-storm-100-mtb-2025
+RedirectPermanent /product/scott-roxter-26-disc-mtb/ /shop/scott-roxter-26-disc-mtb
+RedirectPermanent /product/scott-aspect-930-mtb/ /shop/scott-aspect-930-mtb
+RedirectPermanent /product/scott-scale-965-mtb/ /shop/scott-scale-965-mtb
+RedirectPermanent /product/trek-marlin-7-gen-3-mtb-2025/ /shop/trek-marlin-7-gen-3-mtb-2025
+RedirectPermanent /product/100-accuri-2-goggles/ /shop/100-accuri-2-goggles
+RedirectPermanent /product/fox-ranger-mtb-gloves/ /shop/fox-ranger-mtb-gloves
+RedirectPermanent /product/shimano-deore-xt-pedals/ /shop/shimano-deore-xt-pedals
+RedirectPermanent /product/maxxis-minion-dhf-29-tyre/ /shop/maxxis-minion-dhf-29-tyre
+RedirectPermanent /product/lezyne-macro-drive-1300-light/ /shop/lezyne-macro-drive-1300-light
+RedirectPermanent /product/micro-scooter-sprite/ /shop/micro-scooter-sprite
+RedirectPermanent /product/byk-e-350-kids-bike/ /shop/byk-e-350-kids-bike
+RedirectPermanent /product/trek-powerfly-5-e-mtb/ /shop/trek-powerfly-5-e-mtb
