@@ -26,6 +26,20 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['@radix-ui/react-icons', 'lucide-react'],
   },
+  async redirects() {
+    // WooCommerce to Ecwid product redirects
+    // Full list in scripts/redirects-review.csv
+    return [
+      // Sample of key product redirects - full list loaded dynamically
+      { source: '/product/:slug', destination: '/shop', permanent: false },
+      { source: '/product-category/:path*', destination: '/shop', permanent: false },
+      { source: '/shop/bikes/:path*', destination: '/shop', permanent: false },
+      { source: '/shop/accessories/:path*', destination: '/shop', permanent: false },
+      { source: '/shop/clothing/:path*', destination: '/shop', permanent: false },
+      { source: '/shop/parts/:path*', destination: '/shop', permanent: false },
+      { source: '/shop/helmets/:path*', destination: '/shop', permanent: false },
+    ]
+  },
 }
 
 export default nextConfig

@@ -1,16 +1,1 @@
-Name,SKU,Regular price,Sale price,Categories,Description,Images,Stock
-"Norco Charger 1 (2025)","NOR-CHG1-25","1899.00","","Bikes > Mountain Bikes > Hard Tail","Climb mountains, ride trails, but most of all, just get out there and go further.","https://cranks.com.au/wp-content/uploads/2024/norco-charger-1.jpg","5"
-"Norco Charger 2 (2025)","NOR-CHG2-25","1649.00","","Bikes > Mountain Bikes > Hard Tail","A hardtail that packs a lot of punch.","https://cranks.com.au/wp-content/uploads/2024/norco-charger-2.jpg","3"
-"Norco Storm 100 MTB 2025","NOR-STM100","999.00","","Bikes > Mountain Bikes > Hard Tail","Progressive off-road design with features to help you discover your favourite way to ride.","https://cranks.com.au/wp-content/uploads/2024/norco-storm-100.jpg","8"
-"Scott Roxter 26 Disc MTB","SCO-ROX26","1200.00","899.00","Bikes > Mountain Bikes > Hard Tail","Suspension fork, disc brakes and a trusty Shimano drivetrain.","https://cranks.com.au/wp-content/uploads/2024/scott-roxter-26.jpg","2"
-"Scott Aspect 930 MTB","SCO-ASP930","1499.00","1199.00","Bikes > Mountain Bikes > Hard Tail","Hardtail designed to be light, efficient and reasonably priced.","https://cranks.com.au/wp-content/uploads/2024/scott-aspect-930.jpg","4"
-"Scott Scale 965 MTB","SCO-SC965","1999.00","1399.00","Bikes > Mountain Bikes > Hard Tail","12-speed Shimano drivetrain and RockShox fork with Remote Lockout.","https://cranks.com.au/wp-content/uploads/2024/scott-scale-965.jpg","2"
-"Trek Marlin 7 Gen 3 MTB 2025","TRK-MRL7-25","1799.00","1499.00","Bikes > Mountain Bikes > Hard Tail","Confidence-boosting trail geometry with RockShox suspension.","https://cranks.com.au/wp-content/uploads/2024/trek-marlin-7.jpg","6"
-"100% Accuri 2 Goggles","100-ACC2-BLK","89.00","","Clothing > Eyewear > Goggles","MTB goggles with clear lens and anti-fog coating.","https://cranks.com.au/wp-content/uploads/2024/100-accuri-2.jpg","12"
-"Fox Ranger MTB Gloves","FOX-RNG-GLV","59.00","","Clothing > Gloves","Lightweight trail gloves with touchscreen compatibility.","https://cranks.com.au/wp-content/uploads/2024/fox-ranger-gloves.jpg","25"
-"Shimano Deore XT Pedals","SHM-XT-PDL","179.00","","Parts > Pedals and cleats > MTB","Clipless MTB pedals with adjustable tension.","https://cranks.com.au/wp-content/uploads/2024/shimano-xt-pedals.jpg","10"
-"Maxxis Minion DHF 29 Tyre","MXX-DHF29","79.00","","Parts > Tyres > MTB > 29","Front tyre with aggressive tread for maximum grip.","https://cranks.com.au/wp-content/uploads/2024/maxxis-minion-dhf.jpg","30"
-"Lezyne Macro Drive 1300 Light","LEZ-MAC1300","129.00","","Accessories > Lights","1300 lumens front light with multiple modes.","https://cranks.com.au/wp-content/uploads/2024/lezyne-macro-drive.jpg","15"
-"Micro Scooter Sprite","MIC-SPRT","169.00","","Scooters > Kids Scooters","Foldable kids scooter for ages 5+.","https://cranks.com.au/wp-content/uploads/2024/micro-sprite.jpg","8"
-"BYK E-350 Kids Bike","BYK-E350","449.00","","Bikes > Kids Bikes > 4-6 Yrs","Lightweight kids bike designed for young riders.","https://cranks.com.au/wp-content/uploads/2024/byk-e350.jpg","4"
-"Trek Powerfly 5 E-MTB","TRK-PF5","6499.00","","Bikes > E Bikes > E MTB Bikes","Full suspension e-mountain bike with Bosch motor.","https://cranks.com.au/wp-content/uploads/2024/trek-powerfly-5.jpg","2"
+id,name,slug,sku,price,sale_price,stock,stock_status,weight,categories,old_url

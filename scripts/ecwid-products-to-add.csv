@@ -1,0 +1,7 @@
+type,product_internal_id,product_sku,product_name,product_price,product_compare_to_price,product_is_inventory_tracked,product_quantity,product_is_available,product_media_main_image_url,product_description,product_category_1,product_is_shipping_required,product_weight
+product,,,100% SURPASS Knee Guard Black,105,210,false,0,true,http://cranks.com.au/wp-content/uploads/2021/10/11530_e8eKJX_original.jpg,,Clothing,true,0.0
+product,,,100% SURPASS Elbow Guard Black,89.50,179,false,0,true,http://cranks.com.au/wp-content/uploads/2021/10/11531_PiDaiw_original.jpg,,Clothing,true,0.0
+product,,,Zefal Frame Bag Z Frame Pack 20,33,33,false,0,true,http://cranks.com.au/wp-content/uploads/2021/10/ZEF-7049.png,<strong>Product Code: </strong>ZEF-7049,Accessories,true,0.0
+product,,,Zefal Frame Bag Z Race Small,59,59,false,0,true,http://cranks.com.au/wp-content/uploads/2021/10/ZEF-7051WEB.jpg,<strong>Product Code: </strong>(ZEF-7051B / ZEF-7051A),Accessories,true,0.0
+product,,,BYK E2,439,439,false,0,true,http://cranks.com.au/wp-content/uploads/2022/12/E2front_1800x1800.webp,,2-4 Yrs,true,0.0
+product,,,Pro Bar Meal Bar,6.00,6.00,false,0,true,http://cranks.com.au/wp-content/uploads/2024/07/1_Best-MEAL-Chocolate-Coconut.webp,,Accessories,true,0.0
