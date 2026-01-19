@@ -19,6 +19,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
   },
+  icons: {
+    icon: '/cranks-logo.png',
+    shortcut: '/cranks-logo.png',
+    apple: '/cranks-logo.png',
+  },
   openGraph: {
     title: 'Cranks Bike Shop - Premium Bikes & Expert Service',
     description: 'Your trusted local bike shop for premium bikes, expert repairs, and cycling gear.',

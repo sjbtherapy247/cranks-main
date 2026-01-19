@@ -1,157 +1,72 @@
 "use client"
 
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useRef } from "react"
 
 interface EcwidStoreProps {
   storeId?: string
 }
 
-declare global {
-  interface Window {
-    xProductBrowser?: (...args: string[]) => void
-    Ecwid?: unknown
-    ec?: unknown
-    ecwid_script_defer?: boolean
-    ecwid_dynamic_widgets?: boolean
-  }
-}
-
 export function EcwidStore({ storeId = "129297501" }: EcwidStoreProps) {
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
-  const initializedRef = useRef(false)
+  const iframeRef = useRef<HTMLIFrameElement>(null)
 
   useEffect(() => {
-    // Prevent double initialization (React Strict Mode)
-    if (initializedRef.current) return
-    
-    const containerId = "my-store-" + storeId
+    const iframe = iframeRef.current
+    if (!iframe) return
 
-    const initProductBrowser = () => {
-      // Make sure container exists in DOM
-      const container = document.getElementById(containerId)
-      if (!container) {
-        console.error("Ecwid container not found:", containerId)
-        return false
-      }
+    // Create the HTML content for the iframe
+    const html = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, sans-serif; }
+  </style>
+</head>
+<body>
+  <div id="my-store-${storeId}"></div>
+  <script data-cfasync="false" type="text/javascript" src="https://app.ecwid.com/script.js?${storeId}&data_platform=code" charset="utf-8"><\/script>
+  <script type="text/javascript">
+    xProductBrowser("categoriesPerRow=3","views=grid(20,3) list(60) table(60)","categoryView=grid","searchView=list","id=my-store-${storeId}");
+  <\/script>
+</body>
+</html>`
 
-      if (typeof window.xProductBrowser === "function") {
-        try {
-          initializedRef.current = true
-          // Call with exact same format as Ecwid's embed code
-          window.xProductBrowser(
-            "categoriesPerRow=3",
-            "views=grid(20,3) list(60) table(60)",
-            "categoryView=grid",
-            "searchView=list",
-            "id=" + containerId
-          )
-          setIsLoading(false)
-          return true
-        } catch (err) {
-          console.error("Ecwid init error:", err)
-          initializedRef.current = false
-          return false
-        }
-      }
-      return false
-    }
-
-    // Set Ecwid config flags
-    window.ecwid_script_defer = true
-    window.ecwid_dynamic_widgets = true
-
-    // Check if already loaded
-    if (typeof window.xProductBrowser === "function") {
-      // Small delay to ensure DOM is ready
-      requestAnimationFrame(() => {
-        initProductBrowser()
-      })
-      return
-    }
-
-    // Check if script exists
-    if (document.getElementById("ecwid-script")) {
-      // Poll until ready
-      const poll = setInterval(() => {
-        if (typeof window.xProductBrowser === "function") {
-          clearInterval(poll)
-          initProductBrowser()
-        }
-      }, 100)
-      setTimeout(() => clearInterval(poll), 15000)
-      return
-    }
-
-    // Create script
-    const script = document.createElement("script")
-    script.id = "ecwid-script"
-    script.src = "https://app.ecwid.com/script.js?" + storeId + "&data_platform=code"
-    script.async = true
-    script.charset = "utf-8"
-
-    script.onload = () => {
-      // Wait for xProductBrowser to be defined
-      const poll = setInterval(() => {
-        if (typeof window.xProductBrowser === "function") {
-          clearInterval(poll)
-          // Extra delay to let Ecwid fully initialize
-          setTimeout(initProductBrowser, 100)
-        }
-      }, 50)
-      setTimeout(() => {
-        clearInterval(poll)
-        if (!initializedRef.current) {
-          setError("Store failed to load")
-          setIsLoading(false)
-        }
-      }, 10000)
-    }
-
-    script.onerror = () => {
-      setError("Failed to load store script")
-      setIsLoading(false)
-    }
-
-    document.body.appendChild(script)
-
-    return () => {
-      // Don't cleanup - Ecwid manages its own state
+    // Write to iframe
+    const doc = iframe.contentDocument || iframe.contentWindow?.document
+    if (doc) {
+      doc.open()
+      doc.write(html)
+      doc.close()
     }
   }, [storeId])
 
+  // Handle clicks on links in main page - clear hash before navigation
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement
+      const link = target.closest("a")
+      
+      if (link && link.href && !link.href.includes("#!")) {
+        const url = new URL(link.href, window.location.origin)
+        if (url.pathname !== "/shop" && window.location.hash.includes("#!")) {
+          history.replaceState(null, "", window.location.pathname)
+        }
+      }
+    }
+
+    document.addEventListener("click", handleClick, true)
+    return () => document.removeEventListener("click", handleClick, true)
+  }, [])
+
   return (
-    <div className="min-h-[500px] relative">
-      {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-white/80 z-10">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-red-600 mx-auto mb-3"></div>
-            <p className="text-gray-500 text-sm">Loading products...</p>
-          </div>
-        </div>
-      )}
-      
-      {error && (
-        <div className="absolute inset-0 flex items-center justify-center bg-white z-10">
-          <div className="text-center text-red-600">
-            <p>{error}</p>
-            <button 
-              onClick={() => window.location.reload()} 
-              className="mt-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 text-sm"
-            >
-              Retry
-            </button>
-          </div>
-        </div>
-      )}
-      
-      {/* Ecwid container */}
-      <div 
-        ref={containerRef}
-        id={"my-store-" + storeId} 
-        className="min-h-[500px]"
-      />
-    </div>
+    <iframe
+      ref={iframeRef}
+      title="Cranks Bike Shop Store"
+      className="w-full min-h-[800px] border-0"
+      sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
+    />
   )
 }
